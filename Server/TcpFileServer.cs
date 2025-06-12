@@ -63,8 +63,9 @@ namespace Server
         {
             using NetworkStream stream = client.GetStream();
             await HandleStreamAsync(stream);
-            client.Close();
+
             Console.WriteLine($"[Сервер] Клиент {client.Client.RemoteEndPoint} отключен");
+            client.Close();
         }
 
         public async Task HandleStreamAsync(Stream stream)
