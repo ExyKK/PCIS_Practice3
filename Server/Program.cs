@@ -6,7 +6,12 @@ namespace Server
     {
         static async Task Main(string[] args)
         {
-            TcpServer server = new(IPAddress.Any, 9000, "your_directory");
+            TcpFileServer server = new
+            (
+                host: IPAddress.Any, 
+                port: 9000, 
+                storageDirectory: "your_directory"
+            );
             await server.Run();
         }
     }

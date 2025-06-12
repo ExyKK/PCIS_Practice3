@@ -1,4 +1,4 @@
-﻿namespace Server
+﻿namespace Server.Models
 {
     public class FileAnalysis
     {

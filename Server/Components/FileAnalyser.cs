@@ -1,14 +1,15 @@
-﻿using System.Collections.Concurrent;
+﻿using Server.Models;
+using System.Collections.Concurrent;
 
-namespace Server
+namespace Server.Components
 {
-    public class FilesReader
+    public class FileAnalyser
     {
-        private readonly string[] filePaths;
+        private readonly string[] paths;
 
-        public FilesReader(string[] filePaths)
+        public FileAnalyser(string[] paths)
         {
-            this.filePaths = ValidateFilePaths(filePaths);
+            this.paths = ValidateFilePaths(paths);
         }
 
         private string[] ValidateFilePaths(string[] inputFiles)
@@ -40,7 +41,7 @@ namespace Server
             char[] delim = " ,.:;?!()`\n\r\t".ToCharArray();
             ConcurrentBag<FileAnalysis> results = [];
 
-            var tasks = filePaths.Select(async file =>
+            var tasks = paths.Select(async file =>
             {
                 string text = await File.ReadAllTextAsync(file);
 

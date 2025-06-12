@@ -10,7 +10,7 @@ namespace Client
 
             string[] filesToSend =
             [
-                "your_files.txt"
+                "your_file.txt"
             ];
 
             await sender.SendFilesAsync(filesToSend);
