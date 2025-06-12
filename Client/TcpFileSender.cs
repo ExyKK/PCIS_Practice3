@@ -21,6 +21,12 @@ namespace Client
             await client.ConnectAsync(_serverIp, _serverPort);
             using NetworkStream stream = client.GetStream();
 
+            await SendFilesToStreamAsync(stream, filePaths);
+            await ReadServerResponseAsync(stream);
+        }
+
+        public async Task SendFilesToStreamAsync(Stream stream, string[] filePaths)
+        {
             await WriteIntAsync(stream, filePaths.Length);
 
             foreach (string path in filePaths)
@@ -37,7 +43,10 @@ namespace Client
 
                 Console.WriteLine($"[Клиент] Отправлен файл: {fileName}");
             }
+        }
 
+        private async Task ReadServerResponseAsync(Stream stream)
+        {
             byte[] buffer = new byte[8192];
             StringBuilder response = new();
 
@@ -50,7 +59,7 @@ namespace Client
             Console.WriteLine("[Клиент] Ответ от сервера:\n" + response);
         }
 
-        private async Task WriteIntAsync(NetworkStream stream, int value)
+        private async Task WriteIntAsync(Stream stream, int value)
         {
             byte[] bytes = BitConverter.GetBytes(value);
             await stream.WriteAsync(bytes, 0, bytes.Length);

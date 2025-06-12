@@ -62,7 +62,13 @@ namespace Server
         private async Task HandleClientAsync(TcpClient client)
         {
             using NetworkStream stream = client.GetStream();
+            await HandleStreamAsync(stream);
+            client.Close();
+            Console.WriteLine($"[Сервер] Клиент {client.Client.RemoteEndPoint} отключен");
+        }
 
+        public async Task HandleStreamAsync(Stream stream)
+        {
             try
             {
                 FileReceiver receiver = new
@@ -98,11 +104,6 @@ namespace Server
             catch (Exception ex)
             {
                 Console.WriteLine($"[Сервер] Ошибка: {ex.Message}");
-            }
-            finally
-            {
-                client.Close();
-                Console.WriteLine($"[Сервер] Клиент {client.Client} отключен.");
             }
         }
     }

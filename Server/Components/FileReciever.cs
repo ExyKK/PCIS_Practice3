@@ -5,13 +5,13 @@ namespace Server.Components
 {
     public class FileReceiver
     {
-        private readonly NetworkStream _stream;
+        private readonly Stream _stream;
         private readonly string _directory;
 
         private readonly int _maxAllowedFileSize;
         private readonly int _bufferSize;
 
-        public FileReceiver(NetworkStream stream, string directory, int maxAllowedFileSize, int bufferSize)
+        public FileReceiver(Stream stream, string directory, int maxAllowedFileSize, int bufferSize)
         {
             _stream = stream;
             _directory = directory;
@@ -108,5 +108,4 @@ namespace Server.Components
             }
         }
     }
-
 }
